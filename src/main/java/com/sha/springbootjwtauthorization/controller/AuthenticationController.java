@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("api/authentication")
 public class AuthenticationController {
@@ -31,7 +33,11 @@ public class AuthenticationController {
         {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-
+        if (user.getCreateTime() == null)
+        {
+            user.setCreateTime(LocalDateTime.now());
+        }
+        userService.saveUser(user);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

@@ -51,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
     @Bean
     public WebMvcConfigurer corsConfigurer()
     {
@@ -66,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     }
+
 
     @Bean
     public JwtAuthorizationFilter jwtAuthorizationFilter()
