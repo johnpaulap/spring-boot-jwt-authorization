@@ -31,14 +31,14 @@ public class AuthenticationController {
     {
         if (userService.findByUsername(user.getUsername()).isPresent())
         {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+            return new ResponseEntity<>(user.getUsername()+",Already Exists",HttpStatus.CONFLICT);
         }
         if (user.getCreateTime() == null)
         {
             user.setCreateTime(LocalDateTime.now());
         }
         userService.saveUser(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>("Hello World",HttpStatus.CREATED);
     }
 
     @PostMapping("sign-in")
