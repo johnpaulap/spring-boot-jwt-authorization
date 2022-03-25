@@ -1,5 +1,6 @@
 package com.sha.springbootjwtauthorization.security;
 
+import com.sha.springbootjwtauthorization.model.Role;
 import com.sha.springbootjwtauthorization.security.jwt.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers("/api/authentication/**").permitAll()
+                .antMatchers("/api/admin/**").hasRole(Role.admin.name())
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

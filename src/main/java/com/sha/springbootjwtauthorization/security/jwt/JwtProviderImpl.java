@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
-@Service
+
+@Component
 public class JwtProviderImpl implements JwtProvider {
 
     @Value("${app.jwt.secret}")
@@ -57,7 +59,7 @@ public class JwtProviderImpl implements JwtProvider {
         String username =claims.getSubject();
         Long userId= claims.get("userId",Long.class);
 
-        Set<GrantedAuthority>authorities= Arrays.stream(claims.get("role").toString().split((",")))
+        Set<GrantedAuthority>authorities= Arrays.stream(claims.get("roles").toString().split((",")))
                 .map(SecurityUtils::ConvertToAuthority)
                 .collect(Collectors.toSet());
 
